@@ -294,7 +294,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
           <div className={`relative ${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
             <img src={slbHero} alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-overlay" />
             <div className="absolute inset-0 bg-[linear-gradient(135deg,oklch(0.72_0.2_50/0.8)_0%,oklch(0.62_0.25_0/0.85)_100%)]" />
-            <div className="text-xs font-black uppercase tracking-[0.25em] text-background/85">
+            <div className="relative z-10 text-xs font-black uppercase tracking-[0.25em] text-background/85">
               {config.title}
             </div>
             <h1 className="mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
