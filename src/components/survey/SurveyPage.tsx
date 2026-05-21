@@ -196,8 +196,8 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
       audience: config.audience,
       submittedAt: new Date().toISOString(),
       answers: {
-        overall: Number(overall),
-        recommend: Number(recommend),
+        overall: overall ? Number(overall) : null,
+        recommend: recommend ? Number(recommend) : null,
         ratings: Object.fromEntries(Object.entries(ratings).map(([k, v]) => [k, Number(v)])),
         choices,
         highlight,
