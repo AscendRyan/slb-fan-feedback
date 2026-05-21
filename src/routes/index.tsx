@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import slbLogo from "@/assets/slb-logo.png";
 import slbHero from "@/assets/slb-hero.png";
 import slbPattern from "@/assets/slb-pattern.jpg";
+import slbCourtBg from "@/assets/slb-bg-court.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
