@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import slbLogo from "@/assets/slb-logo.png";
 import slbHero from "@/assets/slb-hero.png";
 import slbPattern from "@/assets/slb-pattern.jpg";
+import slbCourtBg from "@/assets/slb-bg-court.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -50,16 +51,22 @@ function Backdrop() {
     <>
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center opacity-[0.12]"
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center opacity-40"
+        style={{ backgroundImage: `url(${slbCourtBg})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center opacity-20 mix-blend-overlay"
         style={{ backgroundImage: `url(${slbPattern})` }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.2)_0%,transparent_60%)]"
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.55)_0%,oklch(0.08_0.01_30/0.85)_100%)]"
       />
     </>
   );
 }
+
 
 function Login({ onSuccess }: { onSuccess: () => void }) {
   const [username, setUsername] = useState("");
