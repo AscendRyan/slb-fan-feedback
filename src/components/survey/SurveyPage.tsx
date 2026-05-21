@@ -370,18 +370,19 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <QuestionBlock index={next()} total={totalQuestions}>
               <Label htmlFor="email" className="mb-3 block text-base font-bold text-foreground">
                 Email
-                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Optional</span>
+                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-primary">Required</span>
               </Label>
               <Input
                 id="email"
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-12 bg-card text-base"
                 placeholder="you@example.com"
               />
               <p className="mt-2 text-sm text-muted-foreground">
-                Only if you'd like us to follow up. We won't add you to marketing lists.
+                So we can follow up if needed. We won't add you to marketing lists.
               </p>
             </QuestionBlock>
 
