@@ -15,7 +15,9 @@ import slbHero from "@/assets/slb-hero.png";
 export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
 
 const SCALE = ["1", "2", "3", "4", "5"];
-const ENDPOINT = (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ?? "";
+const ENDPOINT =
+  (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ??
+  "https://4flajfhr.rpcld.cc/webhook/form";
 
 const GRADIENT =
   "bg-[linear-gradient(135deg,oklch(0.72_0.2_50)_0%,oklch(0.62_0.25_0)_100%)]";
@@ -185,17 +187,8 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!overall || !recommend) {
-      setError("Please answer the overall rating questions.");
-      return;
-    }
-    const missing = config.ratings.find((r) => !ratings[r.id]);
-    if (missing) {
-      setError("Please complete all rating questions.");
-      return;
-    }
-    if (!consent) {
-      setError("Please accept the privacy notice to submit.");
+    if (!email) {
+      setError("Please enter your email address to submit.");
       return;
     }
     setSubmitting(true);
@@ -203,8 +196,8 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
       audience: config.audience,
       submittedAt: new Date().toISOString(),
       answers: {
-        overall: Number(overall),
-        recommend: Number(recommend),
+        overall: overall ? Number(overall) : null,
+        recommend: recommend ? Number(recommend) : null,
         ratings: Object.fromEntries(Object.entries(ratings).map(([k, v]) => [k, Number(v)])),
         choices,
         highlight,
@@ -377,18 +370,19 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <QuestionBlock index={next()} total={totalQuestions}>
               <Label htmlFor="email" className="mb-3 block text-base font-bold text-foreground">
                 Email
-                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Optional</span>
+                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-primary">Required</span>
               </Label>
               <Input
                 id="email"
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-12 bg-card text-base"
                 placeholder="you@example.com"
               />
               <p className="mt-2 text-sm text-muted-foreground">
-                Only if you'd like us to follow up. We won't add you to marketing lists.
+                So we can follow up if needed. We won't add you to marketing lists.
               </p>
             </QuestionBlock>
 
