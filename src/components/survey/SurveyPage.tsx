@@ -267,17 +267,18 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   const next = () => ++qi;
 
   return (
-    <div className="relative min-h-screen bg-background">
+    <div className="relative min-h-screen">
       {/* Cartoon basketball hype background — fills entire page */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-repeat"
+        className="pointer-events-none fixed inset-0 z-0 bg-repeat"
         style={{ backgroundImage: `url(${slbCartoonBg})`, backgroundSize: "560px" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.45)_0%,oklch(0.08_0.01_30/0.7)_100%)]"
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.3)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.25)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.35)_0%,oklch(0.08_0.01_30/0.55)_100%)]"
       />
+
 
 
       <Header />
