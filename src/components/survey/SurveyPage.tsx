@@ -15,7 +15,9 @@ import slbHero from "@/assets/slb-hero.png";
 export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
 
 const SCALE = ["1", "2", "3", "4", "5"];
-const ENDPOINT = (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ?? "";
+const ENDPOINT =
+  (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ??
+  "https://4flajfhr.rpcld.cc/webhook/form";
 
 const GRADIENT =
   "bg-[linear-gradient(135deg,oklch(0.72_0.2_50)_0%,oklch(0.62_0.25_0)_100%)]";
