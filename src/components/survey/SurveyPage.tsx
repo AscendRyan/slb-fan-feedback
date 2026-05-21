@@ -301,7 +301,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <p className="relative z-10 mt-3 text-base font-medium text-background/95">{config.intro}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card/95 p-4 sm:space-y-5 sm:p-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card p-4 sm:space-y-5 sm:p-6">
             <QuestionBlock index={next()} total={totalQuestions}>
               <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
             </QuestionBlock>
