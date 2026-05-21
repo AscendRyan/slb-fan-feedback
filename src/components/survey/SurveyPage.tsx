@@ -48,7 +48,7 @@ export interface SurveyConfig {
 
 function Header() {
   return (
-    <header className="relative h-20 border-b border-border bg-background/90 backdrop-blur">
+    <header className="relative z-10 h-20 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4">
         <img
           src={slbLogo}
@@ -267,21 +267,22 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   const next = () => ++qi;
 
   return (
-    <div className="relative min-h-screen bg-background">
+    <div className="relative min-h-screen">
       {/* Cartoon basketball hype background — fills entire page */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-repeat"
+        className="pointer-events-none fixed inset-0 z-0 bg-repeat"
         style={{ backgroundImage: `url(${slbCartoonBg})`, backgroundSize: "560px" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.45)_0%,oklch(0.08_0.01_30/0.7)_100%)]"
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.3)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.25)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.35)_0%,oklch(0.08_0.01_30/0.55)_100%)]"
       />
 
 
+
       <Header />
-      <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
+      <main className="relative z-10 mx-auto max-w-2xl px-4 py-8 sm:py-10">
         {/* Glow border wrapper */}
         <div className={`rounded-2xl p-[2px] ${GRADIENT} shadow-[0_20px_80px_-20px_rgba(255,80,40,0.5)]`}>
         <Card className="relative overflow-hidden rounded-2xl border-0 bg-card p-0">
