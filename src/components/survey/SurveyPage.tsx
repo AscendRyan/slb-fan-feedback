@@ -12,7 +12,7 @@ import slbPattern from "@/assets/slb-pattern.jpg";
 import slbCourtBg from "@/assets/slb-bg-court.jpg";
 import slbHero from "@/assets/slb-hero.png";
 
-export type AudienceId = "fan" | "player" | "media" | "partner";
+export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
 
 const SCALE = ["1", "2", "3", "4", "5"];
 const ENDPOINT = (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ?? "";
