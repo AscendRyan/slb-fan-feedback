@@ -275,16 +275,22 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
 
   return (
     <div className="relative min-h-screen bg-background">
-      {/* SLB themed background */}
+      {/* SLB themed background — basketball court imagery */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-[0.12]"
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ backgroundImage: `url(${slbCourtBg})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-overlay"
         style={{ backgroundImage: `url(${slbPattern})` }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.2)_0%,transparent_60%)]"
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.6)_0%,oklch(0.08_0.01_30/0.85)_100%)]"
       />
+
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
         {/* Glow border wrapper */}
