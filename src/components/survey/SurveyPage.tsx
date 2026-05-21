@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import slbLogo from "@/assets/slb-logo.png";
 import slbPattern from "@/assets/slb-pattern.jpg";
-import slbCourtBg from "@/assets/slb-bg-court.jpg";
+import slbCartoonBg from "@/assets/slb-cartoon-bg.jpg";
 import slbHero from "@/assets/slb-hero.png";
 
 export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
@@ -268,21 +268,17 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
 
   return (
     <div className="relative min-h-screen bg-background">
-      {/* SLB themed background — basketball court imagery */}
+      {/* Cartoon basketball hype background — fills entire page */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-70"
-        style={{ backgroundImage: `url(${slbCourtBg})` }}
+        className="pointer-events-none fixed inset-0 -z-10 bg-repeat"
+        style={{ backgroundImage: `url(${slbCartoonBg})`, backgroundSize: "560px" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(${slbPattern})` }}
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.45)_0%,oklch(0.08_0.01_30/0.7)_100%)]"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.45)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.4)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.55)_0%,oklch(0.08_0.01_30/0.8)_100%)]"
-      />
+
 
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
@@ -305,7 +301,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <p className="relative z-10 mt-3 text-base font-medium text-background/95">{config.intro}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card/95 p-4 sm:space-y-5 sm:p-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card p-4 sm:space-y-5 sm:p-6">
             <QuestionBlock index={next()} total={totalQuestions}>
               <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
             </QuestionBlock>
