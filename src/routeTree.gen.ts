@@ -13,6 +13,7 @@ import { Route as PlayerRouteImport } from './routes/player'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as FanRouteImport } from './routes/fan'
+import { Route as DiscountRouteImport } from './routes/discount'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PlayerRoute = PlayerRouteImport.update({
@@ -35,6 +36,11 @@ const FanRoute = FanRouteImport.update({
   path: '/fan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiscountRoute = DiscountRouteImport.update({
+  id: '/discount',
+  path: '/discount',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/discount': typeof DiscountRoute
   '/fan': typeof FanRoute
   '/media': typeof MediaRoute
   '/partner': typeof PartnerRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/discount': typeof DiscountRoute
   '/fan': typeof FanRoute
   '/media': typeof MediaRoute
   '/partner': typeof PartnerRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/discount': typeof DiscountRoute
   '/fan': typeof FanRoute
   '/media': typeof MediaRoute
   '/partner': typeof PartnerRoute
@@ -65,14 +74,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/fan' | '/media' | '/partner' | '/player'
+  fullPaths: '/' | '/discount' | '/fan' | '/media' | '/partner' | '/player'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/fan' | '/media' | '/partner' | '/player'
-  id: '__root__' | '/' | '/fan' | '/media' | '/partner' | '/player'
+  to: '/' | '/discount' | '/fan' | '/media' | '/partner' | '/player'
+  id:
+    | '__root__'
+    | '/'
+    | '/discount'
+    | '/fan'
+    | '/media'
+    | '/partner'
+    | '/player'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DiscountRoute: typeof DiscountRoute
   FanRoute: typeof FanRoute
   MediaRoute: typeof MediaRoute
   PartnerRoute: typeof PartnerRoute
@@ -109,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discount': {
+      id: '/discount'
+      path: '/discount'
+      fullPath: '/discount'
+      preLoaderRoute: typeof DiscountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +145,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DiscountRoute: DiscountRoute,
   FanRoute: FanRoute,
   MediaRoute: MediaRoute,
   PartnerRoute: PartnerRoute,
@@ -129,3 +154,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
