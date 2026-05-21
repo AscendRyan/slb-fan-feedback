@@ -48,8 +48,9 @@ export interface SurveyConfig {
 
 function Header() {
   return (
-    <header className="relative z-10 h-20 border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4">
+    <header className="relative z-20 h-20 border-b border-border">
+      <div aria-hidden className="absolute inset-0 bg-background/90 backdrop-blur" />
+      <div className="relative mx-auto flex h-full max-w-3xl items-center justify-between px-4">
         <img
           src={slbLogo}
           alt="Super League Basketball"
