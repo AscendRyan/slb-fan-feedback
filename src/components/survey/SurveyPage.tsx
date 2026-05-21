@@ -406,6 +406,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             </Button>
           </form>
         </Card>
+        </div>
       </main>
     </div>
   );
