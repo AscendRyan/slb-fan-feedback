@@ -100,6 +100,8 @@
 @theme inline {
   --color-slb-orange: oklch(0.72 0.2 50);
   --color-slb-pink: oklch(0.62 0.25 0);
+  --font-display: "Bebas Neue", "Barlow", system-ui, sans-serif;
+  --font-body: "Barlow", system-ui, sans-serif;
 }
 
 .dark {
