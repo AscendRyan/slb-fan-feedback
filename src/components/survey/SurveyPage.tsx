@@ -19,18 +19,36 @@ const GRADIENT =
 const GRADIENT_TEXT =
   "bg-[linear-gradient(135deg,oklch(0.78_0.2_50)_0%,oklch(0.68_0.25_0)_100%)] bg-clip-text text-transparent";
 
+export interface RatingQuestion {
+  id: string;
+  label: string;
+}
+
+export interface ChoiceQuestion {
+  id: string;
+  label: string;
+  options: string[];
+  multi?: boolean;
+}
+
 export interface SurveyConfig {
   audience: AudienceId;
   title: string;
   intro: string;
-  audienceQuestion: string;
+  /** Audience-specific rating questions (1-5). Shown after the shared overall rating. */
+  ratings: RatingQuestion[];
+  /** Audience-specific multiple-choice questions. */
+  choices?: ChoiceQuestion[];
+  /** Custom prompts for the open-text fields. */
+  highlightPrompt?: string;
+  improvePrompt?: string;
 }
 
 function Header() {
   return (
     <header className="border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-        <img src={slbLogo} alt="Super League Basketball" className="h-10 w-auto" />
+      <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
+        <img src={slbLogo} alt="Super League Basketball" className="h-16 w-auto sm:h-20" />
         <span className="hidden text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground sm:block">
           Post-Event Survey
         </span>
@@ -76,9 +94,56 @@ function Scale({
   );
 }
 
+function ChoiceField({
+  q,
+  value,
+  onChange,
+}: {
+  q: ChoiceQuestion;
+  value: string[];
+  onChange: (v: string[]) => void;
+}) {
+  const toggle = (opt: string) => {
+    if (q.multi) {
+      onChange(value.includes(opt) ? value.filter((v) => v !== opt) : [...value, opt]);
+    } else {
+      onChange([opt]);
+    }
+  };
+  return (
+    <div>
+      <Label className="mb-2 block text-sm font-bold">
+        {q.label}
+        {q.multi && <span className="ml-2 text-xs font-normal text-muted-foreground">(select all that apply)</span>}
+      </Label>
+      <div className="flex flex-wrap gap-2">
+        {q.options.map((opt) => {
+          const active = value.includes(opt);
+          return (
+            <button
+              type="button"
+              key={opt}
+              onClick={() => toggle(opt)}
+              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                active
+                  ? `${GRADIENT} border-transparent text-background`
+                  : "border-border bg-secondary text-foreground hover:border-primary"
+              }`}
+            >
+              {opt}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function SurveyPage({ config }: { config: SurveyConfig }) {
   const [overall, setOverall] = useState("");
-  const [audq, setAudq] = useState("");
+  const [recommend, setRecommend] = useState("");
+  const [ratings, setRatings] = useState<Record<string, string>>({});
+  const [choices, setChoices] = useState<Record<string, string[]>>({});
   const [highlight, setHighlight] = useState("");
   const [improve, setImprove] = useState("");
   const [email, setEmail] = useState("");
@@ -90,8 +155,13 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!overall || !audq) {
-      setError("Please answer the rating questions.");
+    if (!overall || !recommend) {
+      setError("Please answer the overall rating questions.");
+      return;
+    }
+    const missing = config.ratings.find((r) => !ratings[r.id]);
+    if (missing) {
+      setError("Please complete all rating questions.");
       return;
     }
     if (!consent) {
@@ -104,7 +174,9 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
       submittedAt: new Date().toISOString(),
       answers: {
         overall: Number(overall),
-        audienceSpecific: Number(audq),
+        recommend: Number(recommend),
+        ratings: Object.fromEntries(Object.entries(ratings).map(([k, v]) => [k, Number(v)])),
+        choices,
         highlight,
         improve,
         email: email || null,
@@ -136,7 +208,9 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
 
   function reset() {
     setOverall("");
-    setAudq("");
+    setRecommend("");
+    setRatings({});
+    setChoices({});
     setHighlight("");
     setImprove("");
     setEmail("");
@@ -156,7 +230,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <span className={GRADIENT_TEXT}>Thanks</span> for your feedback!
           </h1>
           <p className="mt-3 text-muted-foreground">
-            Your input helps make Super League Basketball events even better.
+            Your input helps make Super League Basketball Play-Off Finals even better.
           </p>
           <Button onClick={reset} variant="outline" className="mt-8 font-bold uppercase tracking-wider">
             Submit another response
@@ -176,17 +250,38 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
               {config.title}
             </div>
             <h1 className="mt-1 text-3xl font-black uppercase tracking-tight text-background sm:text-4xl">
-              How was the final?
+              Play-Off Finals Feedback
             </h1>
             <p className="mt-2 text-sm text-background/90">{config.intro}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-8">
-            <Scale name="overall" label="Overall, how was your experience?" value={overall} onChange={setOverall} />
-            <Scale name="audq" label={config.audienceQuestion} value={audq} onChange={setAudq} />
+            <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
+            <Scale name="recommend" label="How likely are you to recommend attending an SLB Finals event to a friend?" value={recommend} onChange={setRecommend} />
+
+            {config.ratings.map((r) => (
+              <Scale
+                key={r.id}
+                name={r.id}
+                label={r.label}
+                value={ratings[r.id] ?? ""}
+                onChange={(v) => setRatings((p) => ({ ...p, [r.id]: v }))}
+              />
+            ))}
+
+            {config.choices?.map((q) => (
+              <ChoiceField
+                key={q.id}
+                q={q}
+                value={choices[q.id] ?? []}
+                onChange={(v) => setChoices((p) => ({ ...p, [q.id]: v }))}
+              />
+            ))}
 
             <div>
-              <Label htmlFor="highlight" className="text-sm font-bold">What was the highlight? (optional)</Label>
+              <Label htmlFor="highlight" className="text-sm font-bold">
+                {config.highlightPrompt ?? "What was the highlight of the Finals for you? (optional)"}
+              </Label>
               <Textarea
                 id="highlight"
                 value={highlight}
@@ -199,7 +294,9 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             </div>
 
             <div>
-              <Label htmlFor="improve" className="text-sm font-bold">What should we improve? (optional)</Label>
+              <Label htmlFor="improve" className="text-sm font-bold">
+                {config.improvePrompt ?? "What should we improve next year? (optional)"}
+              </Label>
               <Textarea
                 id="improve"
                 value={improve}
