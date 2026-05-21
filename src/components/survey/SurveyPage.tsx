@@ -8,6 +8,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import slbLogo from "@/assets/slb-logo.png";
+import slbPattern from "@/assets/slb-pattern.jpg";
+import slbHero from "@/assets/slb-hero.png";
 
 export type AudienceId = "fan" | "player" | "media" | "partner";
 
@@ -43,9 +45,13 @@ export interface SurveyConfig {
 
 function Header() {
   return (
-    <header className="border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
-        <img src={slbLogo} alt="Super League Basketball" className="h-16 w-auto sm:h-20" />
+    <header className="relative h-20 border-b border-border bg-background/90 backdrop-blur">
+      <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4">
+        <img
+          src={slbLogo}
+          alt="Super League Basketball"
+          className="relative z-10 h-32 w-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] sm:h-40"
+        />
         <span className="hidden text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground sm:block">
           Post-Event Survey
         </span>
