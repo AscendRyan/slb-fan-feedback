@@ -48,7 +48,7 @@ export interface SurveyConfig {
 
 function Header() {
   return (
-    <header className="relative h-20 border-b border-border bg-background/90 backdrop-blur">
+    <header className="relative z-10 h-20 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4">
         <img
           src={slbLogo}
