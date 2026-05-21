@@ -273,11 +273,27 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   const next = () => ++qi;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      {/* SLB themed background */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-[0.12]"
+        style={{ backgroundImage: `url(${slbPattern})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.2)_0%,transparent_60%)]"
+      />
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
-        <Card className="overflow-hidden border-border bg-card p-0 shadow-2xl">
-          <div className={`${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
+        {/* Glow border wrapper */}
+        <div className={`rounded-2xl p-[2px] ${GRADIENT} shadow-[0_20px_80px_-20px_rgba(255,80,40,0.5)]`}>
+        <Card className="relative overflow-hidden rounded-2xl border-0 bg-card p-0">
+          {/* Court-line decorative borders */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.06]" style={{ backgroundImage: `url(${slbPattern})`, backgroundSize: "cover" }} />
+          <div className={`relative ${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
+            <img src={slbHero} alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,oklch(0.72_0.2_50/0.8)_0%,oklch(0.62_0.25_0/0.85)_100%)]" />
             <div className="text-xs font-black uppercase tracking-[0.25em] text-background/85">
               {config.title}
             </div>
