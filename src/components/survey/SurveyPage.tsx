@@ -8,6 +8,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import slbLogo from "@/assets/slb-logo.png";
+import slbPattern from "@/assets/slb-pattern.jpg";
+import slbHero from "@/assets/slb-hero.png";
 
 export type AudienceId = "fan" | "player" | "media" | "partner";
 
@@ -43,9 +45,13 @@ export interface SurveyConfig {
 
 function Header() {
   return (
-    <header className="border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
-        <img src={slbLogo} alt="Super League Basketball" className="h-16 w-auto sm:h-20" />
+    <header className="relative h-20 border-b border-border bg-background/90 backdrop-blur">
+      <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4">
+        <img
+          src={slbLogo}
+          alt="Super League Basketball"
+          className="relative z-10 h-32 w-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] sm:h-40"
+        />
         <span className="hidden text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground sm:block">
           Post-Event Survey
         </span>
@@ -267,21 +273,37 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   const next = () => ++qi;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      {/* SLB themed background */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-[0.12]"
+        style={{ backgroundImage: `url(${slbPattern})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.2)_0%,transparent_60%)]"
+      />
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
-        <Card className="overflow-hidden border-border bg-card p-0 shadow-2xl">
-          <div className={`${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
-            <div className="text-xs font-black uppercase tracking-[0.25em] text-background/85">
+        {/* Glow border wrapper */}
+        <div className={`rounded-2xl p-[2px] ${GRADIENT} shadow-[0_20px_80px_-20px_rgba(255,80,40,0.5)]`}>
+        <Card className="relative overflow-hidden rounded-2xl border-0 bg-card p-0">
+          {/* Court-line decorative borders */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.06]" style={{ backgroundImage: `url(${slbPattern})`, backgroundSize: "cover" }} />
+          <div className={`relative ${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
+            <img src={slbHero} alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,oklch(0.72_0.2_50/0.8)_0%,oklch(0.62_0.25_0/0.85)_100%)]" />
+            <div className="relative z-10 text-xs font-black uppercase tracking-[0.25em] text-background/85">
               {config.title}
             </div>
-            <h1 className="mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
+            <h1 className="relative z-10 mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
               Play-Off Finals Feedback
             </h1>
-            <p className="mt-3 text-base font-medium text-background/95">{config.intro}</p>
+            <p className="relative z-10 mt-3 text-base font-medium text-background/95">{config.intro}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 bg-card p-4 sm:space-y-5 sm:p-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card/95 p-4 sm:space-y-5 sm:p-6">
             <QuestionBlock index={next()} total={totalQuestions}>
               <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
             </QuestionBlock>
@@ -384,6 +406,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             </Button>
           </form>
         </Card>
+        </div>
       </main>
     </div>
   );
