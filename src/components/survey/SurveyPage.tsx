@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import slbLogo from "@/assets/slb-logo.png";
 import slbPattern from "@/assets/slb-pattern.jpg";
-import slbCourtBg from "@/assets/slb-bg-court.jpg";
+import slbCartoonBg from "@/assets/slb-cartoon-bg.jpg";
 import slbHero from "@/assets/slb-hero.png";
 
 export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
