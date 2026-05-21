@@ -187,17 +187,8 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!overall || !recommend) {
-      setError("Please answer the overall rating questions.");
-      return;
-    }
-    const missing = config.ratings.find((r) => !ratings[r.id]);
-    if (missing) {
-      setError("Please complete all rating questions.");
-      return;
-    }
-    if (!consent) {
-      setError("Please accept the privacy notice to submit.");
+    if (!email) {
+      setError("Please enter your email address to submit.");
       return;
     }
     setSubmitting(true);
