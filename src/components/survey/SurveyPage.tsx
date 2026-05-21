@@ -282,7 +282,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
 
 
       <Header />
-      <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
+      <main className="relative z-10 mx-auto max-w-2xl px-4 py-8 sm:py-10">
         {/* Glow border wrapper */}
         <div className={`rounded-2xl p-[2px] ${GRADIENT} shadow-[0_20px_80px_-20px_rgba(255,80,40,0.5)]`}>
         <Card className="relative overflow-hidden rounded-2xl border-0 bg-card p-0">
