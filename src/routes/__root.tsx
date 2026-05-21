@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@SLBasketball" },
+      { name: "twitter:title", content: "Super League Basketball — Post-Event Survey" },
+      { name: "twitter:description", content: "Share your feedback on Super League Basketball final events." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6e47d920-b6cf-462a-9c09-ee7b58d9431c/id-preview-85af7511--87af6559-494c-4938-9744-3d8611288dad.lovable.app-1779371367859.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6e47d920-b6cf-462a-9c09-ee7b58d9431c/id-preview-85af7511--87af6559-494c-4938-9744-3d8611288dad.lovable.app-1779371367859.png" },
     ],
     links: [
       {
