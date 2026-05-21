@@ -297,13 +297,13 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
             <div className="relative z-10 text-xs font-black uppercase tracking-[0.25em] text-background/85">
               {config.title}
             </div>
-            <h1 className="mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
+            <h1 className="relative z-10 mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
               Play-Off Finals Feedback
             </h1>
-            <p className="mt-3 text-base font-medium text-background/95">{config.intro}</p>
+            <p className="relative z-10 mt-3 text-base font-medium text-background/95">{config.intro}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 bg-card p-4 sm:space-y-5 sm:p-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-4 bg-card/95 p-4 sm:space-y-5 sm:p-6">
             <QuestionBlock index={next()} total={totalQuestions}>
               <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
             </QuestionBlock>
