@@ -35,18 +35,15 @@ export interface SurveyConfig {
   audience: AudienceId;
   title: string;
   intro: string;
-  /** Audience-specific rating questions (1-5). Shown after the shared overall rating. */
   ratings: RatingQuestion[];
-  /** Audience-specific multiple-choice questions. */
   choices?: ChoiceQuestion[];
-  /** Custom prompts for the open-text fields. */
   highlightPrompt?: string;
   improvePrompt?: string;
 }
 
 function Header() {
   return (
-    <header className="border-b border-border bg-background/80 backdrop-blur">
+    <header className="border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5">
         <img src={slbLogo} alt="Super League Basketball" className="h-16 w-auto sm:h-20" />
         <span className="hidden text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground sm:block">
@@ -54,6 +51,25 @@ function Header() {
         </span>
       </div>
     </header>
+  );
+}
+
+function QuestionBlock({
+  index,
+  total,
+  children,
+}: {
+  index: number;
+  total: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-secondary/30 p-5 sm:p-6">
+      <div className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+        Question {index} <span className="opacity-60">/ {total}</span>
+      </div>
+      {children}
+    </div>
   );
 }
 
@@ -70,15 +86,15 @@ function Scale({
 }) {
   return (
     <div>
-      <Label className="mb-2 block text-sm font-bold">{label}</Label>
-      <RadioGroup value={value} onValueChange={onChange} className="flex gap-2">
+      <Label className="mb-3 block text-base font-bold leading-snug text-foreground">{label}</Label>
+      <RadioGroup value={value} onValueChange={onChange} className="grid grid-cols-5 gap-2">
         {SCALE.map((n) => (
           <label
             key={n}
-            className={`flex-1 cursor-pointer rounded-md border px-3 py-2.5 text-center text-base font-black transition ${
+            className={`flex h-14 cursor-pointer items-center justify-center rounded-lg border-2 text-lg font-black transition ${
               value === n
-                ? `${GRADIENT} border-transparent text-background`
-                : "border-border bg-secondary text-foreground hover:border-primary"
+                ? `${GRADIENT} border-transparent text-background shadow-lg`
+                : "border-border bg-card text-foreground hover:border-primary hover:bg-secondary"
             }`}
           >
             <RadioGroupItem value={n} id={`${name}-${n}`} className="sr-only" />
@@ -86,7 +102,7 @@ function Scale({
           </label>
         ))}
       </RadioGroup>
-      <div className="mt-1 flex justify-between text-xs text-muted-foreground">
+      <div className="mt-2 flex justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         <span>Poor</span>
         <span>Excellent</span>
       </div>
@@ -112,9 +128,13 @@ function ChoiceField({
   };
   return (
     <div>
-      <Label className="mb-2 block text-sm font-bold">
+      <Label className="mb-3 block text-base font-bold leading-snug text-foreground">
         {q.label}
-        {q.multi && <span className="ml-2 text-xs font-normal text-muted-foreground">(select all that apply)</span>}
+        {q.multi && (
+          <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            (select all)
+          </span>
+        )}
       </Label>
       <div className="flex flex-wrap gap-2">
         {q.options.map((opt) => {
@@ -124,10 +144,10 @@ function ChoiceField({
               type="button"
               key={opt}
               onClick={() => toggle(opt)}
-              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              className={`rounded-full border-2 px-4 py-2.5 text-sm font-semibold transition ${
                 active
-                  ? `${GRADIENT} border-transparent text-background`
-                  : "border-border bg-secondary text-foreground hover:border-primary"
+                  ? `${GRADIENT} border-transparent text-background shadow-md`
+                  : "border-border bg-card text-foreground hover:border-primary hover:bg-secondary"
               }`}
             >
               {opt}
@@ -151,6 +171,9 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+
+  const totalQuestions =
+    2 + config.ratings.length + (config.choices?.length ?? 0) + 3; // + highlight, improve, email
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -229,7 +252,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
           <h1 className="mt-6 text-4xl font-black uppercase tracking-tight">
             <span className={GRADIENT_TEXT}>Thanks</span> for your feedback!
           </h1>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-3 text-base text-foreground/80">
             Your input helps make Super League Basketball Play-Off Finals even better.
           </p>
           <Button onClick={reset} variant="outline" className="mt-8 font-bold uppercase tracking-wider">
@@ -240,103 +263,122 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
     );
   }
 
+  let qi = 0;
+  const next = () => ++qi;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="mx-auto max-w-2xl px-4 py-10">
-        <Card className="overflow-hidden border-border bg-card p-0">
-          <div className={`${GRADIENT} px-6 py-6 sm:px-8`}>
-            <div className="text-xs font-black uppercase tracking-[0.25em] text-background/80">
+      <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
+        <Card className="overflow-hidden border-border bg-card p-0 shadow-2xl">
+          <div className={`${GRADIENT} px-6 py-7 sm:px-8 sm:py-8`}>
+            <div className="text-xs font-black uppercase tracking-[0.25em] text-background/85">
               {config.title}
             </div>
-            <h1 className="mt-1 text-3xl font-black uppercase tracking-tight text-background sm:text-4xl">
+            <h1 className="mt-2 text-3xl font-black uppercase leading-tight tracking-tight text-background sm:text-4xl">
               Play-Off Finals Feedback
             </h1>
-            <p className="mt-2 text-sm text-background/90">{config.intro}</p>
+            <p className="mt-3 text-base font-medium text-background/95">{config.intro}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-8">
-            <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
-            <Scale name="recommend" label="How likely are you to recommend attending an SLB Finals event to a friend?" value={recommend} onChange={setRecommend} />
+          <form onSubmit={handleSubmit} className="space-y-4 bg-card p-4 sm:space-y-5 sm:p-6">
+            <QuestionBlock index={next()} total={totalQuestions}>
+              <Scale name="overall" label="Overall, how would you rate the Finals experience?" value={overall} onChange={setOverall} />
+            </QuestionBlock>
+
+            <QuestionBlock index={next()} total={totalQuestions}>
+              <Scale name="recommend" label="How likely are you to recommend an SLB Finals to a friend?" value={recommend} onChange={setRecommend} />
+            </QuestionBlock>
 
             {config.ratings.map((r) => (
-              <Scale
-                key={r.id}
-                name={r.id}
-                label={r.label}
-                value={ratings[r.id] ?? ""}
-                onChange={(v) => setRatings((p) => ({ ...p, [r.id]: v }))}
-              />
+              <QuestionBlock key={r.id} index={next()} total={totalQuestions}>
+                <Scale
+                  name={r.id}
+                  label={r.label}
+                  value={ratings[r.id] ?? ""}
+                  onChange={(v) => setRatings((p) => ({ ...p, [r.id]: v }))}
+                />
+              </QuestionBlock>
             ))}
 
             {config.choices?.map((q) => (
-              <ChoiceField
-                key={q.id}
-                q={q}
-                value={choices[q.id] ?? []}
-                onChange={(v) => setChoices((p) => ({ ...p, [q.id]: v }))}
-              />
+              <QuestionBlock key={q.id} index={next()} total={totalQuestions}>
+                <ChoiceField
+                  q={q}
+                  value={choices[q.id] ?? []}
+                  onChange={(v) => setChoices((p) => ({ ...p, [q.id]: v }))}
+                />
+              </QuestionBlock>
             ))}
 
-            <div>
-              <Label htmlFor="highlight" className="text-sm font-bold">
-                {config.highlightPrompt ?? "What was the highlight of the Finals for you? (optional)"}
+            <QuestionBlock index={next()} total={totalQuestions}>
+              <Label htmlFor="highlight" className="mb-3 block text-base font-bold text-foreground">
+                {config.highlightPrompt ?? "What was the highlight of the Finals for you?"}
+                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Optional</span>
               </Label>
               <Textarea
                 id="highlight"
                 value={highlight}
                 onChange={(e) => setHighlight(e.target.value)}
-                rows={2}
+                rows={3}
                 maxLength={500}
-                className="mt-2"
+                className="bg-card text-base"
                 placeholder="One thing that stood out…"
               />
-            </div>
+            </QuestionBlock>
 
-            <div>
-              <Label htmlFor="improve" className="text-sm font-bold">
-                {config.improvePrompt ?? "What should we improve next year? (optional)"}
+            <QuestionBlock index={next()} total={totalQuestions}>
+              <Label htmlFor="improve" className="mb-3 block text-base font-bold text-foreground">
+                {config.improvePrompt ?? "What should we improve next year?"}
+                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Optional</span>
               </Label>
               <Textarea
                 id="improve"
                 value={improve}
                 onChange={(e) => setImprove(e.target.value)}
-                rows={2}
+                rows={3}
                 maxLength={500}
-                className="mt-2"
+                className="bg-card text-base"
                 placeholder="One thing to make next time better…"
               />
-            </div>
+            </QuestionBlock>
 
-            <div>
-              <Label htmlFor="email" className="text-sm font-bold">Email (optional)</Label>
+            <QuestionBlock index={next()} total={totalQuestions}>
+              <Label htmlFor="email" className="mb-3 block text-base font-bold text-foreground">
+                Email
+                <span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Optional</span>
+              </Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-2"
+                className="h-12 bg-card text-base"
                 placeholder="you@example.com"
               />
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-2 text-sm text-muted-foreground">
                 Only if you'd like us to follow up. We won't add you to marketing lists.
               </p>
-            </div>
+            </QuestionBlock>
 
-            <label className="flex items-start gap-3 rounded-md border border-border bg-secondary/50 p-3">
-              <Checkbox checked={consent} onCheckedChange={(v) => setConsent(v === true)} className="mt-0.5" />
-              <span className="text-sm text-muted-foreground">
+            <label className="flex items-start gap-3 rounded-xl border-2 border-border bg-secondary/40 p-4">
+              <Checkbox checked={consent} onCheckedChange={(v) => setConsent(v === true)} className="mt-0.5 h-5 w-5" />
+              <span className="text-sm leading-relaxed text-foreground/90">
                 I agree my responses can be used by Super League Basketball to improve future events.
               </span>
             </label>
 
-            {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+            {error && (
+              <div className="rounded-lg border-2 border-destructive/40 bg-destructive/10 p-3 text-sm font-semibold text-destructive">
+                {error}
+              </div>
+            )}
 
             <Button
               type="submit"
               size="lg"
               disabled={submitting}
-              className={`w-full ${GRADIENT} text-base font-black uppercase tracking-wider text-background hover:opacity-90`}
+              className={`h-14 w-full ${GRADIENT} text-base font-black uppercase tracking-wider text-background shadow-lg hover:opacity-95`}
             >
               {submitting ? "Submitting…" : "Submit feedback"}
             </Button>
