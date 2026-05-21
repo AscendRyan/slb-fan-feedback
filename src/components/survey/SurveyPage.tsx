@@ -268,21 +268,17 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
 
   return (
     <div className="relative min-h-screen bg-background">
-      {/* SLB themed background — basketball court imagery */}
+      {/* Cartoon basketball hype background — fills entire page */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-70"
-        style={{ backgroundImage: `url(${slbCourtBg})` }}
+        className="pointer-events-none fixed inset-0 -z-10 bg-repeat"
+        style={{ backgroundImage: `url(${slbCartoonBg})`, backgroundSize: "560px" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(${slbPattern})` }}
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.35)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.3)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.45)_0%,oklch(0.08_0.01_30/0.7)_100%)]"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.25_0/0.45)_0%,transparent_60%),radial-gradient(ellipse_at_bottom,oklch(0.72_0.2_50/0.4)_0%,transparent_60%),linear-gradient(180deg,oklch(0.08_0.01_30/0.55)_0%,oklch(0.08_0.01_30/0.8)_100%)]"
-      />
+
 
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:py-10">
