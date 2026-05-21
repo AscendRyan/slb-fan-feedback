@@ -72,14 +72,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Super League Basketball — Post-Event Survey" },
+      { name: "description", content: "Share your feedback on Super League Basketball final events." },
+      { name: "author", content: "Super League Basketball" },
+      { property: "og:title", content: "Super League Basketball — Post-Event Survey" },
+      { property: "og:description", content: "Share your feedback on Super League Basketball final events." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@SLBasketball" },
     ],
     links: [
       {
