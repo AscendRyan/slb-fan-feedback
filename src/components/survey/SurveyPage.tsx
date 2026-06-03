@@ -79,7 +79,7 @@ function RatingPad({
           );
         })}
       </div>
-      <div className="mt-2 flex justify-between text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">
+      <div className="mt-2 flex justify-between text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
         <span>{lowLabel}</span>
         <span>{highLabel}</span>
       </div>
@@ -131,7 +131,7 @@ function Tile({
           {index && <span className="text-[#f0d78c]">{index}. </span>}
           {title}
         </h3>
-        {hint && <p className="mt-2 text-xs text-white/45">{hint}</p>}
+        {hint && <p className="mt-2 text-xs text-white/75">{hint}</p>}
       </div>
       <div className="flex-1">{children}</div>
     </div>
@@ -317,7 +317,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                   </h1>
                 </div>
                 <div className="flex flex-col items-start gap-2 md:items-end">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/45">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/75">
                     Progress: {progressPct}%
                   </span>
                   <div className="flex gap-1">
@@ -332,7 +332,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 max-w-2xl text-sm text-white/65">{config.intro}</p>
+              <p className="mt-4 max-w-2xl text-sm text-white/85">{config.intro}</p>
             </div>
           </div>
 
@@ -345,7 +345,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                   <h3 className="font-display text-3xl uppercase tracking-wide">
                     <span className="text-[#f0d78c]">01.</span> Overall Finals Experience
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/50">
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">
                     Thinking about the atmosphere, the game, and the venue — how would you rate your day?
                   </p>
                 </div>
@@ -357,7 +357,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                   <h3 className="font-display text-3xl uppercase tracking-wide">
                     <span className="text-[#f0d78c]">02.</span> Would you recommend SLB Finals?
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/50">
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">
                     How likely are you to tell a friend they need to be at next year's Finals?
                   </p>
                 </div>
@@ -436,7 +436,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                     rows={4}
                     maxLength={500}
                     placeholder="The moment the game turned…"
-                    className="resize-none border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/25 focus-visible:border-[#e85d3a] focus-visible:ring-0"
+                    className="resize-none border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/45 focus-visible:border-[#e85d3a] focus-visible:ring-0"
                   />
                 </Tile>
               </div>
@@ -452,7 +452,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                     rows={4}
                     maxLength={500}
                     placeholder="One thing to make next time better…"
-                    className="resize-none border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/25 focus-visible:border-[#f0d78c] focus-visible:ring-0"
+                    className="resize-none border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/45 focus-visible:border-[#f0d78c] focus-visible:ring-0"
                   />
                 </Tile>
               </div>
@@ -470,7 +470,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="h-12 border-white/10 bg-[#0d0d0d] text-base text-white placeholder:text-white/25 focus-visible:border-[#e85d3a] focus-visible:ring-0"
+                    className="h-12 border-white/10 bg-[#0d0d0d] text-base text-white placeholder:text-white/45 focus-visible:border-[#e85d3a] focus-visible:ring-0"
                   />
                 </Tile>
               </div>
@@ -492,7 +492,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                   onChange={(e) => setConsent(e.target.checked)}
                   className="mt-1 h-5 w-5 cursor-pointer accent-[#e85d3a]"
                 />
-                <span className="text-xs leading-relaxed text-white/55">
+                <span className="text-xs leading-relaxed text-white/80">
                   I agree my responses can be used by Super League Basketball to improve future events.
                 </span>
               </label>
@@ -511,7 +511,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
           <div className="h-1 bg-gradient-to-r from-[#e85d3a] via-[#f0d78c] to-[#e85d3a]" />
         </div>
 
-        <p className="mt-6 text-center text-[10px] font-bold uppercase tracking-[0.4em] text-white/30">
+        <p className="mt-6 text-center text-[10px] font-bold uppercase tracking-[0.4em] text-white/60">
           Super League Basketball · Post-Event Intelligence
         </p>
       </main>
