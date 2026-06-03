@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, ArrowRight } from "lucide-react";
 import slbLogo from "@/assets/slb-logo.png";
-import slbCartoonBg from "@/assets/slb-cartoon-bg.jpg";
+import slbArenaBg from "@/assets/slb-arena-bg.jpg";
 import slbHero from "@/assets/slb-hero.png";
 
 export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
