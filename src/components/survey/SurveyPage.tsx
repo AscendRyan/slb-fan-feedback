@@ -125,7 +125,7 @@ function Tile({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`bg-white/[0.02] border border-white/5 p-6 flex flex-col ${className}`}>
+    <div className={`bg-white/[0.04] border border-white/10 p-6 flex flex-col ${className}`}>
       <div className="mb-5">
         <h3 className="font-display text-2xl leading-none tracking-wide uppercase text-white">
           {index && <span className="text-[#f0d78c]">{index}. </span>}
