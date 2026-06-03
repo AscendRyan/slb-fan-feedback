@@ -233,8 +233,12 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
     <>
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-repeat"
-        style={{ backgroundImage: `url(${slbCartoonBg})`, backgroundSize: "560px" }}
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${slbArenaBg})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(232,93,58,0.25)_0%,transparent_55%),radial-gradient(ellipse_at_bottom,rgba(240,215,140,0.12)_0%,transparent_60%),linear-gradient(180deg,rgba(13,13,13,0.65)_0%,rgba(13,13,13,0.9)_100%)]"
       />
       <div
         aria-hidden
