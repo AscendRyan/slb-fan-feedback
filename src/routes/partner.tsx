@@ -8,11 +8,12 @@ export const Route = createFileRoute("/partner")({
         audience: "partner",
         title: "Partner / Sponsor",
         intro: "Tell us how your Finals activation went — takes about 90 seconds.",
+        recommendPrompt: "How likely are you to tell a friend/colleague they need to partner with SLB at next year's Finals?",
         ratings: [
           { id: "accountMgmt", label: "How would you rate your SLB account management in the build-up?" },
           { id: "activationSupport", label: "How well was your on-site activation supported (load-in, power, space)?" },
           { id: "brandVisibility", label: "How would you rate your brand visibility in the arena and on broadcast?" },
-          { id: "fanEngagement", label: "How well did your activation engage fans on the concourse?" },
+          { id: "fanEngagement", label: "How well did your activation engage fans (Concourse/In-Arena)?" },
           { id: "hospitality", label: "How would you rate the hospitality experience for your guests?" },
           { id: "ticketingAllocation", label: "How well was your ticket allocation handled?" },
           { id: "digitalSocial", label: "How would you rate SLB's digital and social amplification of your brand?" },

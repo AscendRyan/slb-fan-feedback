@@ -53,7 +53,7 @@ export const Route = createFileRoute("/discount")({
           {
             id: "purchasePlatform",
             label: "Where did you buy the ticket?",
-            options: ["SLB website", "Ticketmaster / reseller", "Club / team", "On the door", "Other"],
+            options: ["SLB website", "AXS", "Ticketmaster / reseller", "Club / team", "Box office", "On the door", "Other"],
           },
           {
             id: "attendedWith",

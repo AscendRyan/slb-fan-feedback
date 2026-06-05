@@ -11,7 +11,9 @@ export const Route = createFileRoute("/fan")({
         ratings: [
           { id: "atmosphere", label: "How would you rate the matchday atmosphere inside the arena?" },
           { id: "entertainment", label: "How was the half-time and in-arena entertainment (MC, music, dancers, kiss cam)?" },
-          { id: "value", label: "How would you rate value for money (ticket, travel, food)?" },
+          { id: "valueTicket", label: "How would you rate value for money on your ticket?" },
+          { id: "valueTravel", label: "How would you rate value for money on travel to the Finals?" },
+          { id: "valueFood", label: "How would you rate value for money on food and drink at the venue?" },
           { id: "foodDrink", label: "How would you rate the food and drink offering?" },
           { id: "venueAccess", label: "How easy was it to get to and into the venue?" },
           { id: "seatingView", label: "How happy were you with your seat and view of the court?" },
@@ -38,13 +40,13 @@ export const Route = createFileRoute("/fan")({
           {
             id: "ticketSource",
             label: "Where did you buy your ticket?",
-            options: ["SLB website", "Club / team", "Ticketmaster / reseller", "On the door", "Gifted / comp"],
+            options: ["SLB website", "AXS", "Club / team", "Ticketmaster / reseller", "Box office", "On the door", "Gifted / comp"],
           },
           {
             id: "heardAbout",
             label: "How did you hear about the Finals?",
             multi: true,
-            options: ["TV / Sky Sports", "Instagram", "TikTok", "X / Twitter", "Friend or family", "Club newsletter", "Local press"],
+            options: ["TV / Sky Sports", "Instagram", "TikTok", "X / Twitter", "Friend or family", "Club newsletter", "Local press", "AXS", "Box office"],
           },
           {
             id: "returnNext",
