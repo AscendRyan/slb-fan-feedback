@@ -33,6 +33,7 @@ export interface SurveyConfig {
   choices?: ChoiceQuestion[];
   highlightPrompt?: string;
   improvePrompt?: string;
+  recommendPrompt?: string;
 }
 
 /* -------------------------------------------------------------------------- */
