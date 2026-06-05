@@ -249,11 +249,13 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
     <header className="relative z-20 border-b border-white/10">
       <div aria-hidden className="absolute inset-0 bg-[#0d0d0d]/90 backdrop-blur" />
       <div className="relative mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
-        <img
-          src={slbLogo}
-          alt="Super League Basketball"
-          className="relative z-10 h-32 w-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] sm:h-40"
-        />
+        <a href="https://www.superleaguebasketballm.co.uk/" target="_blank" rel="noopener noreferrer" className="relative z-10 inline-block">
+          <img
+            src={slbLogo}
+            alt="Super League Basketball"
+            className="h-32 w-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] sm:h-40"
+          />
+        </a>
         <span className="hidden text-[11px] font-bold uppercase tracking-[0.3em] text-[#f0d78c] sm:block">
           Post-Event Survey
         </span>
