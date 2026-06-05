@@ -40,13 +40,13 @@ export const Route = createFileRoute("/fan")({
           {
             id: "ticketSource",
             label: "Where did you buy your ticket?",
-            options: ["SLB website", "Club / team", "Ticketmaster / reseller", "On the door", "Gifted / comp"],
+            options: ["SLB website", "AXS", "Club / team", "Ticketmaster / reseller", "Box office", "On the door", "Gifted / comp"],
           },
           {
             id: "heardAbout",
             label: "How did you hear about the Finals?",
             multi: true,
-            options: ["TV / Sky Sports", "Instagram", "TikTok", "X / Twitter", "Friend or family", "Club newsletter", "Local press"],
+            options: ["TV / Sky Sports", "Instagram", "TikTok", "X / Twitter", "Friend or family", "Club newsletter", "Local press", "AXS", "Box office"],
           },
           {
             id: "returnNext",
