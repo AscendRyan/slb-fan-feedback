@@ -359,7 +359,7 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
                     <span className="text-[#f0d78c]">02.</span> Would you recommend SLB Finals?
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
-                    How likely are you to tell a friend they need to be at next year's Finals?
+                    {config.recommendPrompt ?? "How likely are you to tell a friend they need to be at next year's Finals?"}
                   </p>
                 </div>
                 <RatingPad name="recommend" value={recommend} onChange={setRecommend} size="lg" lowLabel="Unlikely" highLabel="Definitely" />
