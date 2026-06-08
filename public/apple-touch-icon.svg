@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="SLB fan feedback icon">
+  <rect width="180" height="180" rx="32" fill="#0d0d0d"/>
+  <path d="M30 52h120v76H30z" fill="#e85d3a"/>
+  <path d="M30 90h120" stroke="#0d0d0d" stroke-width="10"/>
+  <path d="M90 52v76" stroke="#0d0d0d" stroke-width="10"/>
+  <circle cx="90" cy="90" r="24" fill="none" stroke="#0d0d0d" stroke-width="10"/>
+  <path d="M46 34h88v20H46zM46 126h88v20H46z" fill="#f0d78c"/>
+  <path d="M60 75h24M60 105h24M96 75h24M96 105h24" stroke="#fff5d6" stroke-width="9" stroke-linecap="round"/>
+  <path d="M58 157h64" stroke="#e85d3a" stroke-width="8" stroke-linecap="round"/>
+</svg>

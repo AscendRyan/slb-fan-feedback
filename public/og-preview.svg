@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Super League Basketball feedback preview">
+  <defs>
+    <linearGradient id="court" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d0d0d"/>
+      <stop offset="0.55" stop-color="#241313"/>
+      <stop offset="1" stop-color="#4b1d14"/>
+    </linearGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="2" fill="#f0d78c" opacity="0.25"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#court)"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity="0.7"/>
+  <path d="M0 500c190-72 340-78 520-20s330 58 680-52v202H0z" fill="#e85d3a" opacity="0.92"/>
+  <path d="M90 118h252v252H90z" fill="#e85d3a"/>
+  <path d="M90 244h252M216 118v252" stroke="#0d0d0d" stroke-width="18"/>
+  <circle cx="216" cy="244" r="54" fill="none" stroke="#0d0d0d" stroke-width="18"/>
+  <path d="M124 74h184v44H124zM124 370h184v44H124z" fill="#f0d78c"/>
+  <text x="420" y="190" fill="#f0d78c" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" letter-spacing="8">SLB FAN FEEDBACK</text>
+  <text x="420" y="305" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="900">Post-event insight</text>
+  <text x="420" y="390" fill="#ffffff" opacity="0.82" font-family="Arial, Helvetica, sans-serif" font-size="38">Fan, player, media, and partner surveys.</text>
+  <g fill="#0d0d0d" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">
+    <text x="120" y="558">Capture</text>
+    <text x="392" y="558">Route</text>
+    <text x="644" y="558">Submit</text>
+    <text x="896" y="558">Improve</text>
+  </g>
+</svg>

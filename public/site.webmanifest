@@ -1,0 +1,21 @@
+{
+  "name": "SLB Fan Feedback",
+  "short_name": "SLB Feedback",
+  "description": "Post-event feedback surveys for Super League Basketball audiences.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ]
+}

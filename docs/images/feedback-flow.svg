@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-label="Feedback flow diagram">
+  <rect width="1000" height="320" rx="18" fill="#0d0d0d"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="800" text-anchor="middle">
+    <g transform="translate(125 160)">
+      <circle r="66" fill="#e85d3a"/>
+      <text y="-8" fill="#0d0d0d" font-size="28">Pick</text>
+      <text y="28" fill="#0d0d0d" font-size="18">audience</text>
+    </g>
+    <g transform="translate(375 160)">
+      <circle r="66" fill="#f0d78c"/>
+      <text y="-8" fill="#0d0d0d" font-size="28">Answer</text>
+      <text y="28" fill="#0d0d0d" font-size="18">survey</text>
+    </g>
+    <g transform="translate(625 160)">
+      <circle r="66" fill="#e85d3a"/>
+      <text y="-8" fill="#0d0d0d" font-size="28">POST</text>
+      <text y="28" fill="#0d0d0d" font-size="18">JSON</text>
+    </g>
+    <g transform="translate(875 160)">
+      <circle r="66" fill="#f0d78c"/>
+      <text y="-8" fill="#0d0d0d" font-size="28">Improve</text>
+      <text y="28" fill="#0d0d0d" font-size="18">events</text>
+    </g>
+  </g>
+  <path d="M195 160h110M445 160h110M695 160h110" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+  <path d="M304 160l-20-16v32zM554 160l-20-16v32zM804 160l-20-16v32z" fill="#fff"/>
+</svg>
