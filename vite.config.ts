@@ -21,6 +21,11 @@ export default defineConfig(({ mode }) => {
   return {
     define: envDefine,
     css: { transformer: "lightningcss" },
+    ssr: {
+      // Bundle all dependencies into the SSR output so the Vercel Edge
+      // function is fully self-contained (no node_modules at runtime).
+      noExternal: true,
+    },
     resolve: {
       alias: {
         "@": srcPath,
