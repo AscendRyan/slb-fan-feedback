@@ -40,24 +40,42 @@ await cp(distClient, staticDir, { recursive: true });
 // 2. Bundle the SSR entry with all dependencies inlined.
 await build({
   entryPoints: [path.join(distServer, "server.js")],
-  outfile: path.join(fnDir, "index.js"),
+  outfile: path.join(fnDir, "index.mjs"),
   bundle: true,
   format: "esm",
-  platform: "neutral",
-  target: "es2022",
+  platform: "node",
+  target: "node20",
   mainFields: ["module", "main"],
-  conditions: ["workerd", "worker", "browser", "import", "default"],
   legalComments: "none",
   logLevel: "info",
-  // Edge runtime exposes Web APIs natively; leave node: built-ins alone so
-  // the runtime resolves them (workerd has node compat for the ones we use).
-  external: ["node:*"],
+  banner: {
+    js: [
+      "import { createRequire } from 'node:module';",
+      "const require = createRequire(import.meta.url);",
+    ].join("\n"),
+  },
 });
 
-// 3. Function config — edge runtime
+// 3. Function config — Node serverless runtime (supports Web fetch handler)
 await writeFile(
   path.join(fnDir, ".vc-config.json"),
-  JSON.stringify({ runtime: "edge", entrypoint: "index.js" }, null, 2),
+  JSON.stringify(
+    {
+      runtime: "nodejs20.x",
+      handler: "index.mjs",
+      launcherType: "Nodejs",
+      shouldAddHelpers: false,
+      supportsResponseStreaming: true,
+    },
+    null,
+    2,
+  ),
+  "utf8",
+);
+// Vercel's Node launcher requires package.json with "type":"module" for .mjs ESM
+await writeFile(
+  path.join(fnDir, "package.json"),
+  JSON.stringify({ type: "module" }, null, 2),
   "utf8",
 );
 
