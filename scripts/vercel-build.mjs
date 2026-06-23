@@ -37,9 +37,23 @@ await mkdir(fnDir, { recursive: true });
 // 1. Static assets
 await cp(distClient, staticDir, { recursive: true });
 
-// 2. Bundle the SSR entry with all dependencies inlined.
+// 2. Write a small entry wrapper that exposes the Web fetch handler as the
+//    function's default export (Vercel Node runtime supports Web Request/Response).
+const wrapperPath = path.join(root, "dist", "server", "_vercel-entry.mjs");
+await writeFile(
+  wrapperPath,
+  [
+    `import handler from "./server.js";`,
+    `export default async function (request) {`,
+    `  return handler.fetch(request, {}, {});`,
+    `}`,
+  ].join("\n"),
+  "utf8",
+);
+
+// 3. Bundle the wrapper + SSR entry with all dependencies inlined.
 await build({
-  entryPoints: [path.join(distServer, "server.js")],
+  entryPoints: [wrapperPath],
   outfile: path.join(fnDir, "index.mjs"),
   bundle: true,
   format: "esm",
@@ -47,7 +61,7 @@ await build({
   target: "node20",
   mainFields: ["module", "main"],
   legalComments: "none",
-  logLevel: "info",
+  logLevel: "warning",
   banner: {
     js: [
       "import { createRequire } from 'node:module';",
