@@ -48,10 +48,6 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       tsConfigPaths({ projects: ["./tsconfig.json"] }),
       tanstackStart({
-        // Switch the build output to Vercel when VERCEL env is set
-        // (Vercel sets this automatically in its build environment).
-        // Falls back to the default (Node/Cloudflare-compatible) elsewhere.
-        ...(process.env.VERCEL ? { target: "vercel" as const } : {}),
         server: { entry: "server" },
         importProtection: {
           behavior: "error",
