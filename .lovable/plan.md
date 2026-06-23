@@ -1,33 +1,22 @@
-# Fix Vercel "No Output Directory" error
+**Do I know what the issue is?** Yes.
 
-## Problem
-The Vercel build fails with: `No Output Directory named "output" found after the Build completed. Update vercel.json#outputDirectory...`
+**Problem:** Vercel is still deploying Git commit `d5ba29f`, and the log shows the post-build script is not running: there is no `vercel-build: .vercel/output ready` message after `vite build`. That means Vercel is either building an older Git commit that does not include the latest `vercel.json`/`scripts/vercel-build.mjs` changes, or Vercel’s project settings are overriding the repository config and still expecting an output directory named `output`.
 
-Because `vercel.json` sets `framework: null` with a custom `buildCommand`, Vercel does not auto-detect where `vite build` wrote the deployment bundle.
+**Plan:**
+1. Make the Vercel build harder to misconfigure by moving the post-build step into `package.json` as a dedicated `build:vercel` script.
+2. Update `vercel.json` to call that script directly, so the Vercel logs clearly show whether the Vercel output builder runs.
+3. Keep `outputDirectory` pointed at `.vercel/output`, because that is the directory our script creates.
+4. Add a short deployment note in the repo explaining that the GitHub repo must be pushed/updated and Vercel project settings must not override the Build Command or Output Directory.
 
-## Diagnosis
-- `vite.config.ts` already passes `target: "vercel"` to the TanStack Start plugin when `process.env.VERCEL` is set.
-- TanStack Start's Vercel target emits the build in `.vercel/output` (Vercel Build Output API format).
-- `vercel.json` currently lacks `outputDirectory`, so Vercel looks for a default/non-existent `output` folder.
+**After implementation, redeploy checklist:**
+- Confirm Vercel deploy log clones a new commit, not `d5ba29f`.
+- Confirm the build log includes `vercel-build: .vercel/output ready`.
+- If Vercel still says `output`, clear any Vercel Dashboard override for Output Directory or set it to `.vercel/output`.
 
-## Fix
-Update `vercel.json` to point Vercel at the directory the TanStack Start plugin generates:
+<presentation-actions>
+  <presentation-open-history>View History</presentation-open-history>
+</presentation-actions>
 
-```json
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "vite build",
-  "installCommand": "bun install",
-  "framework": null,
-  "outputDirectory": ".vercel/output"
-}
-```
-
-## Verification steps
-1. Trigger a new Vercel deployment (or run `VERCEL=true bun run build` locally and confirm `.vercel/output` is produced).
-2. Confirm the Vercel deployment no longer reports the missing output directory error.
-3. Smoke-test a route on the deployed site to ensure SSR/static delivery works.
-
-## Notes
-- Keep the conditional `target: "vercel"` in `vite.config.ts` so local builds remain unaffected.
-- If Vercel's build environment does not auto-detect Bun, a `BUN_VERSION` environment variable may be needed in the Vercel project settings; this can be added only if the build later fails on package manager detection.
+<presentation-actions>
+<presentation-link url="https://docs.lovable.dev/tips-tricks/troubleshooting">Troubleshooting docs</presentation-link>
+</presentation-actions>
