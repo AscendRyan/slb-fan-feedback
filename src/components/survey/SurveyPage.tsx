@@ -184,24 +184,26 @@ export function SurveyPage({ config }: { config: SurveyConfig }) {
       return;
     }
     setSubmitting(true);
-    const payload = {
+    const payload: Record<string, string | number | boolean | null> = {
+      formTitle: config.title,
       audience: config.audience,
       submittedAt: new Date().toISOString(),
-      answers: {
-        overall: overall ? Number(overall) : null,
-        recommend: recommend ? Number(recommend) : null,
-        ratings: Object.fromEntries(Object.entries(ratings).map(([k, v]) => [k, Number(v)])),
-        choices,
-        highlight,
-        improve,
-        email,
-        consent,
-      },
-      meta: {
-        userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
-        page: typeof location !== "undefined" ? location.pathname : null,
-      },
+      overall: overall ? Number(overall) : null,
+      recommend: recommend ? Number(recommend) : null,
+      highlight,
+      improve,
+      email,
+      consent,
+      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+      page: typeof location !== "undefined" ? location.pathname : null,
     };
+    for (const r of config.ratings) {
+      payload[r.id] = ratings[r.id] ? Number(ratings[r.id]) : null;
+    }
+    for (const c of config.choices ?? []) {
+      const sel = choices[c.id] ?? [];
+      payload[c.id] = c.multi ? sel.join(", ") : (sel[0] ?? null);
+    }
     try {
       const res = await fetch(ENDPOINT, {
         method: "POST",
