@@ -11,7 +11,7 @@ export type AudienceId = "fan" | "player" | "media" | "partner" | "discount";
 const SCALE = ["1", "2", "3", "4", "5"];
 const ENDPOINT =
   (import.meta.env.VITE_SURVEY_ENDPOINT as string | undefined) ??
-  "https://4flajfhr.rpcld.cc/webhook/form";
+  "https://4flajfhr.rpcld.cc/webhook/SLB-Forms";
 
 export interface RatingQuestion {
   id: string;
